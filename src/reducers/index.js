@@ -1,15 +1,6 @@
 import { combineReducers } from 'redux';
-import { handleActions } from 'redux-actions';
+import isLoading from './test';
+import groups from './groups';
 
-import { fetchFriendsRequest } from '../actions/actions1';
-
-const isLoading = handleActions(
-    {
-        [fetchFriendsRequest]: () => true
-    },
-    false
-);
-
-const rootReducers = combineReducers({ isLoading });
-
+const rootReducers = combineReducers({ isLoading, groups });
 export default rootReducers;
