@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 // import clsx from 'clsx';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
@@ -10,21 +11,13 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-const useStyles = makeStyles(theme => ({
-    formControl: {
-        margin: theme.spacing(3)
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: 250
-    },
-    dense: {
-        marginTop: 20
+const useStyles = makeStyles(() => ({
+    add: {
+        marginTop: 10
     }
 }));
 
-export default ({
+const GroupAdd = ({
     idGroup,
     nameGroup,
     typeGroup,
@@ -54,6 +47,7 @@ export default ({
                 </RadioGroup>
             </FormControl>
             <TextField
+                fullWidth
                 id="group-id"
                 label={`${idGroup.error ? idGroup.error : 'ID'}`}
                 error={idGroup.error ? true : false}
@@ -63,6 +57,7 @@ export default ({
                 className={classes.textField}
             />
             <TextField
+                fullWidth
                 id="group-name"
                 label={`${nameGroup.error ? nameGroup.error : 'Наименование'}`}
                 error={nameGroup.error ? true : false}
@@ -75,7 +70,7 @@ export default ({
                 size="small"
                 color="primary"
                 aria-label="add"
-                className={classes.dense}
+                className={classes.add}
                 onClick={handleGroupsAdd}
             >
                 <AddIcon />
@@ -83,3 +78,35 @@ export default ({
         </Fragment>
     );
 };
+
+GroupAdd.propTypes = {
+    idGroup: PropTypes.shape({
+        name: PropTypes.string,
+        error: PropTypes.string
+    }),
+    nameGroup: PropTypes.shape({
+        name: PropTypes.string,
+        error: PropTypes.string
+    }),
+    typeGroup: PropTypes.string,
+    onChange: PropTypes.func,
+    handleGroupsAdd: PropTypes.func,
+    handleTypeGroup: PropTypes.func
+};
+
+GroupAdd.exportDefault = {
+    idGroup: {
+        name: '',
+        error: ''
+    },
+    nameGroup: {
+        name: '',
+        error: ''
+    },
+    typeGroup: '',
+    onChange: () => {},
+    handleGroupsAdd: () => {},
+    handleTypeGroup: () => {}
+};
+
+export default GroupAdd;

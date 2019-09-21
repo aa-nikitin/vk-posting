@@ -4,7 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './App.css';
 
-import ListGroup from './containers/ListGroup/';
+import GroupAddContain from './containers/GroupAddContain';
+import ListGroupsContain from './containers/ListGroupsContain';
 
 const useStyles = makeStyles(theme => ({
     root: { flexGrow: 1 },
@@ -19,19 +20,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-    // return <ListGroup />;
+    // return <GroupAddContain />;
     const classes = useStyles();
     return (
         <Grid container className={classes.root} spacing={0}>
-            <Grid className={classes.grid} item xs={12} md={4}>
+            <Grid className={classes.grid} item xs={12} md={2}>
                 <Paper className={classes.paper}>
-                    <ListGroup />
+                    <GroupAddContain />
                 </Paper>
             </Grid>
             <Grid className={classes.grid} item xs={12} md={4}>
-                <Paper className={classes.paper}>xs=6</Paper>
+                {/* <Paper className={classes.paper}> */}
+                <ListGroupsContain />
+                {/* </Paper> */}
             </Grid>
-            <Grid className={classes.grid} item xs={12} md={4}>
+            <Grid className={classes.grid} item xs={12} md={6}>
                 <Paper className={classes.paper}>xs=3</Paper>
             </Grid>
         </Grid>

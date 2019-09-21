@@ -6,16 +6,16 @@ import produce from 'immer';
 const groups = handleActions(
     {
         // [groupsAdd]: () => true,
-        [groupsAdd]: (state, action) => {
-            const aaa = produce(state, draftState => {
+        [groupsAdd]: (state, action) =>
+            produce(state, draftState => {
                 draftState.push(action.payload);
-            });
-            return aaa;
-        }
+            })
     },
     []
 );
 
 // const rootReducers = combineReducers({ groups });
+
+export const getGroups = state => state.groups;
 
 export default groups;

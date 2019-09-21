@@ -5,7 +5,8 @@ import _ from 'lodash';
 import { fetchFriendsRequest } from '../../actions/actions1';
 import { groupsAdd } from '../../actions/listGroups';
 
-import MaterialInput from '../../components/MaterialInput';
+import GroupAdd from '../../components/GroupAdd';
+import { getGroups } from '../../reducers/';
 
 class ListGroup extends PureComponent {
     state = {
@@ -16,6 +17,17 @@ class ListGroup extends PureComponent {
 
     handleValid = (name, value) => {
         const validId = _.toInteger(value);
+        const { groups } = this.props;
+        const { typeGroup } = this.state;
+        // console.log(groups);
+        // console.log(groups.indexOf(value));
+        // console.log(name, value);
+        const aaa = _.filter(groups, function(item) {
+            const prefix = typeGroup === 'group' ? '-' : '';
+            console.log(prefix + value);
+            return item.idCommunity === prefix + value;
+        });
+        // console.log(aaa);
         if (value.length === 0) {
             return 'Не должно быть пустым';
         }
@@ -23,6 +35,9 @@ class ListGroup extends PureComponent {
             case 'idGroup':
                 if (validId === 0 || value.indexOf('.') > 0) {
                     return 'Должно быть целым числом';
+                }
+                if (aaa.length) {
+                    return 'сообщество или страница с таким id существуют';
                 }
                 break;
             default:
@@ -44,7 +59,20 @@ class ListGroup extends PureComponent {
     };
 
     handleTypeGroup = value => {
-        this.setState({ typeGroup: value });
+        const {
+            idGroup: { name: idGroup }
+        } = this.state;
+
+        this.setState(
+            {
+                typeGroup: value
+            },
+            () => {
+                const error = this.handleValid('idGroup', idGroup);
+                this.setState({ idGroup: { name: idGroup, error: error } });
+                // console.log(error);
+            }
+        );
     };
 
     handleGroupsAdd = () => {
@@ -59,7 +87,7 @@ class ListGroup extends PureComponent {
         const errorNameGroup = this.handleValid('nameGroup', nameGroup);
 
         if (!errorIdGroup && !errorNameGroup) {
-            groupsAdd({ idCommunity, nameGroup });
+            groupsAdd({ idCommunity, nameGroup, typeGroup });
             idGroup = '';
             nameGroup = '';
         }
@@ -79,7 +107,7 @@ class ListGroup extends PureComponent {
 
         return (
             <div>
-                <MaterialInput
+                <GroupAdd
                     idGroup={idGroup}
                     nameGroup={nameGroup}
                     handleGroupsAdd={this.handleGroupsAdd}
@@ -93,7 +121,9 @@ class ListGroup extends PureComponent {
 }
 
 const mapStateToProps = state => {
-    return state;
+    return {
+        groups: getGroups(state)
+    };
 };
 
 export default connect(
