@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,24 +8,27 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Fab from '@material-ui/core/Fab';
+import DeleteIcon from '@material-ui/icons/Delete';
+import pink from '@material-ui/core/colors/pink';
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         overflowX: 'auto'
     },
-    table: {
-        // minWidth: 650
+    del: {
+        margin: 10,
+        backgroundColor: pink[500],
+        color: '#fff'
     }
 }));
 
-const TableGroup = ({ groups }) => {
-    const [selected, setSelected] = React.useState([]);
-    const isSelected = name => selected === name;
+const TableGroup = ({ groups, active, handleDel, groupsActiveItem }) => {
+    const isSelected = name => active === name;
     const handleClickTable = id => {
-        setSelected(id);
+        groupsActiveItem(id);
     };
-    console.log(selected);
     const classes = useStyles();
     return (
         <Paper className={classes.root}>
@@ -34,9 +37,6 @@ const TableGroup = ({ groups }) => {
                     <TableRow>
                         <TableCell>ID (сообщества/страницы)</TableCell>
                         <TableCell align="right">Наименование</TableCell>
-                        {/* <TableCell align="right">Fat&nbsp;(g)</TableCell> */}
-                        {/* <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -51,15 +51,33 @@ const TableGroup = ({ groups }) => {
                                 {row.idCommunity}
                             </TableCell>
                             <TableCell align="right">{row.nameGroup}</TableCell>
-                            {/* <TableCell align="right">{row.fat}</TableCell> */}
-                            {/* <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+            <Fab
+                size="small"
+                aria-label="del"
+                className={classes.del}
+                onClick={() => handleDel(active)}
+            >
+                <DeleteIcon />
+            </Fab>
         </Paper>
     );
+};
+
+TableGroup.propTypes = {
+    groups: PropTypes.array,
+    active: PropTypes.string,
+    handleDel: PropTypes.func,
+    groupsActiveItem: PropTypes.func
+};
+TableGroup.exportDefault = {
+    groups: [],
+    active: '',
+    handleDel: () => {},
+    groupsActiveItem: () => {}
 };
 
 export default TableGroup;

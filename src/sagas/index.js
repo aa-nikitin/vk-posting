@@ -4,6 +4,8 @@ import { auth, callAPI } from '../api';
 import { ID_APP } from '../constants';
 import { fetchFriendsRequest } from '../actions/actions1';
 
+import { groupsWatch } from './listGroub.js';
+
 export function* fetchSearch() {
     try {
         yield call(auth, ID_APP, 2);
@@ -25,4 +27,5 @@ export function* searchRequestWatch() {
 
 export function* sagas() {
     yield fork(searchRequestWatch);
+    yield fork(groupsWatch);
 }

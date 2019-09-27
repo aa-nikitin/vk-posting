@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { fetchFriendsRequest } from '../../actions/actions1';
-import { groupsAdd } from '../../actions/listGroups';
+import { groupsAdd, setGroupsRequest } from '../../actions/listGroups';
 
 import GroupAdd from '../../components/GroupAdd';
 import { getGroups } from '../../reducers/';
@@ -19,25 +19,22 @@ class ListGroup extends PureComponent {
         const validId = _.toInteger(value);
         const { groups } = this.props;
         const { typeGroup } = this.state;
-        // console.log(groups);
-        // console.log(groups.indexOf(value));
-        // console.log(name, value);
-        const aaa = _.filter(groups, function(item) {
+        const checkSuit = _.filter(groups, function(item) {
             const prefix = typeGroup === 'group' ? '-' : '';
-            console.log(prefix + value);
+
             return item.idCommunity === prefix + value;
         });
-        // console.log(aaa);
+
         if (value.length === 0) {
             return 'Не должно быть пустым';
         }
         switch (name) {
             case 'idGroup':
                 if (validId === 0 || value.indexOf('.') > 0) {
-                    return 'Должно быть целым числом';
+                    return 'ID Должно быть целым числом';
                 }
-                if (aaa.length) {
-                    return 'сообщество или страница с таким id существуют';
+                if (checkSuit.length) {
+                    return 'сообщество с таким id существуют';
                 }
                 break;
             default:
@@ -68,15 +65,14 @@ class ListGroup extends PureComponent {
                 typeGroup: value
             },
             () => {
-                const error = this.handleValid('idGroup', idGroup);
+                const error = this.handleValid('idGroup', idGroup, true);
                 this.setState({ idGroup: { name: idGroup, error: error } });
-                // console.log(error);
             }
         );
     };
 
     handleGroupsAdd = () => {
-        const { groupsAdd } = this.props;
+        const { groupsAdd, setGroupsRequest } = this.props;
         let {
             idGroup: { name: idGroup },
             nameGroup: { name: nameGroup },
@@ -88,6 +84,7 @@ class ListGroup extends PureComponent {
 
         if (!errorIdGroup && !errorNameGroup) {
             groupsAdd({ idCommunity, nameGroup, typeGroup });
+            setGroupsRequest();
             idGroup = '';
             nameGroup = '';
         }
@@ -100,11 +97,10 @@ class ListGroup extends PureComponent {
 
     // componentDidMount() {
     //     const { fetchFriendsRequest } = this.props;
-    //     fetchFriendsRequest('sd');
+    //     fetchFriendsRequest();
     // }
     render() {
         const { idGroup, nameGroup, typeGroup } = this.state;
-
         return (
             <div>
                 <GroupAdd
@@ -128,5 +124,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchFriendsRequest, groupsAdd }
+    { fetchFriendsRequest, groupsAdd, setGroupsRequest }
 )(ListGroup);
