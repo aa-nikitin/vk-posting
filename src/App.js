@@ -6,6 +6,7 @@ import './App.css';
 
 import GroupAddContain from './containers/GroupAddContain';
 import ListGroupsContain from './containers/ListGroupsContain';
+import PostsVkContain from './containers/PostsVkContain';
 
 const useStyles = makeStyles(theme => ({
     root: { flexGrow: 1 },
@@ -35,7 +36,9 @@ function App() {
                 {/* </Paper> */}
             </Grid>
             <Grid className={classes.grid} item xs={12} md={6}>
-                <Paper className={classes.paper}>xs=3</Paper>
+                <Paper className={classes.paper}>
+                    <PostsVkContain />
+                </Paper>
             </Grid>
         </Grid>
     );

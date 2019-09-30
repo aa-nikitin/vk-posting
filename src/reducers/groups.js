@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
+import produce from 'immer';
 import {
     groupsAdd,
     groupsDel,
@@ -11,11 +12,9 @@ import {
     fetchGroupsSuccess,
     fetchGroupsFailure
 } from '../actions/listGroups';
-import produce from 'immer';
 
 const groups = handleActions(
     {
-        // [groupsAdd]: () => true,
         [groupsAdd]: (state, action) =>
             produce(state, draftState => {
                 draftState.push(action.payload);
@@ -28,14 +27,16 @@ const groups = handleActions(
                         item => item.idCommunity !== action.payload
                     ))
             ),
-        [fetchGroupsSuccess]: (state, action) => action.payload
+        [fetchGroupsSuccess]: (state, action) => action.payload,
+        [fetchGroupsRequest]: () => []
     },
     []
 );
 
 const active = handleActions(
     {
-        [groupsActiveItem]: (state, action) => action.payload
+        [groupsActiveItem]: (state, action) => action.payload,
+        [fetchGroupsRequest]: () => ''
     },
     ''
 );

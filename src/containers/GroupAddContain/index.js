@@ -8,7 +8,7 @@ import { groupsAdd, setGroupsRequest } from '../../actions/listGroups';
 import GroupAdd from '../../components/GroupAdd';
 import { getGroups } from '../../reducers/';
 
-class ListGroup extends PureComponent {
+class GroupAddContain extends PureComponent {
     state = {
         idGroup: { name: '', error: '' },
         nameGroup: { name: '', error: '' },
@@ -125,4 +125,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     { fetchFriendsRequest, groupsAdd, setGroupsRequest }
-)(ListGroup);
+)(GroupAddContain);

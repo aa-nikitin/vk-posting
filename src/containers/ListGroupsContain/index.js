@@ -9,8 +9,9 @@ import {
     groupsDel,
     groupsActiveItem
 } from '../../actions/listGroups';
+import { fetchVkGroupRequest } from '../../actions/vkGroups';
 
-class ListGroup extends PureComponent {
+class ListGroupsContain extends PureComponent {
     state = {};
 
     handleDel = id => {
@@ -18,6 +19,13 @@ class ListGroup extends PureComponent {
 
         groupsDel(id);
         setGroupsRequest();
+    };
+
+    handleClickTableRow = id => {
+        const { fetchVkGroupRequest, groupsActiveItem } = this.props;
+
+        groupsActiveItem(id);
+        fetchVkGroupRequest();
     };
 
     componentDidMount() {
@@ -33,6 +41,7 @@ class ListGroup extends PureComponent {
             <TableGroup
                 groups={groups}
                 handleDel={this.handleDel}
+                handleClickTableRow={this.handleClickTableRow}
                 groupsActiveItem={groupsActiveItem}
                 active={active}
             />
@@ -49,5 +58,11 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { setGroupsRequest, fetchGroupsRequest, groupsDel, groupsActiveItem }
-)(ListGroup);
+    {
+        setGroupsRequest,
+        fetchGroupsRequest,
+        groupsDel,
+        groupsActiveItem,
+        fetchVkGroupRequest
+    }
+)(ListGroupsContain);

@@ -24,11 +24,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const TableGroup = ({ groups, active, handleDel, groupsActiveItem }) => {
+const TableGroup = ({ groups, active, handleDel, handleClickTableRow }) => {
     const isSelected = name => active === name;
-    const handleClickTable = id => {
-        groupsActiveItem(id);
-    };
     const classes = useStyles();
     return (
         <Paper className={classes.root}>
@@ -45,7 +42,7 @@ const TableGroup = ({ groups, active, handleDel, groupsActiveItem }) => {
                             hover
                             selected={isSelected(row.idCommunity)}
                             key={row.idCommunity}
-                            onClick={() => handleClickTable(row.idCommunity)}
+                            onClick={() => handleClickTableRow(row.idCommunity)}
                         >
                             <TableCell component="th" scope="row">
                                 {row.idCommunity}
@@ -71,13 +68,13 @@ TableGroup.propTypes = {
     groups: PropTypes.array,
     active: PropTypes.string,
     handleDel: PropTypes.func,
-    groupsActiveItem: PropTypes.func
+    handleClickTableRow: PropTypes.func
 };
 TableGroup.exportDefault = {
     groups: [],
     active: '',
     handleDel: () => {},
-    groupsActiveItem: () => {}
+    handleClickTableRow: () => {}
 };
 
 export default TableGroup;
