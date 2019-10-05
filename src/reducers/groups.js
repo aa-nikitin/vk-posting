@@ -27,7 +27,7 @@ const groups = handleActions(
                         item => item.idCommunity !== action.payload
                     ))
             ),
-        [fetchGroupsSuccess]: (state, action) => action.payload,
+        [fetchGroupsSuccess]: (_state, action) => action.payload,
         [fetchGroupsRequest]: () => []
     },
     []
@@ -35,7 +35,7 @@ const groups = handleActions(
 
 const active = handleActions(
     {
-        [groupsActiveItem]: (state, action) => action.payload,
+        [groupsActiveItem]: (_state, action) => action.payload,
         [fetchGroupsRequest]: () => ''
     },
     ''
@@ -56,11 +56,11 @@ const isLoading = handleActions(
 const error = handleActions(
     {
         [setGroupsRequest]: () => null,
-        [setGroupsFailure]: () => (_state, action) => action.payload,
+        [setGroupsFailure]: (_state, action) => action.payload,
         [fetchGroupsRequest]: () => null,
-        [fetchGroupsFailure]: () => (_state, action) => action.payload
+        [fetchGroupsFailure]: (_state, action) => action.payload
     },
-    false
+    null
 );
 
 export const getGroups = state => state.groups.groups;

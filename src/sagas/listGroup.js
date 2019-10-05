@@ -9,7 +9,7 @@ import {
     fetchGroupsFailure
 } from '../actions/listGroups';
 
-import { getGroups as receiveGroups } from '../reducers/groups';
+import { getGroups as receiveGroups } from '../reducers';
 
 export function* setGroups() {
     try {

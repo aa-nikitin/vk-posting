@@ -20,20 +20,26 @@ class PostsVkContain extends PureComponent {
         return (
             <Grid container spacing={0}>
                 {posts.map(item => {
-                    const { id, text, attachments, photosLink } = item;
+                    const {
+                        id,
+                        text,
+                        attachments,
+                        photosLink,
+                        shortText
+                    } = item;
                     const photoPreview =
                         attachments && attachments[0].type === 'photo'
                             ? attachments[0].sizes[1].url
                             : '';
                     return (
-                        <Grid key={id} item xs={12} md={4}>
-                            <PostVk
-                                text={text}
-                                photoPreview={photoPreview}
-                                attachments={photosLink}
-                                handleAddPost={this.handleAddPost}
-                            />
-                        </Grid>
+                        <PostVk
+                            key={id}
+                            text={text}
+                            shortText={shortText}
+                            photoPreview={photoPreview}
+                            attachments={photosLink}
+                            handleAddPost={this.handleAddPost}
+                        />
                     );
                 })}
             </Grid>

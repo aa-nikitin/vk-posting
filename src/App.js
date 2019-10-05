@@ -10,8 +10,13 @@ import PostsVkContain from './containers/PostsVkContain';
 
 const useStyles = makeStyles(theme => ({
     root: { flexGrow: 1 },
+    gridPosts: { paddingTop: theme.spacing(1) },
     grid: {
         padding: theme.spacing(1)
+    },
+    gridBottom: {
+        padding: theme.spacing(2),
+        marginBottom: theme.spacing(1)
     },
     paper: {
         padding: theme.spacing(2),
@@ -26,19 +31,16 @@ function App() {
     return (
         <Grid container className={classes.root} spacing={0}>
             <Grid className={classes.grid} item xs={12} md={2}>
+                <Paper className={classes.gridBottom}>id куда размещать</Paper>
                 <Paper className={classes.paper}>
                     <GroupAddContain />
                 </Paper>
             </Grid>
-            <Grid className={classes.grid} item xs={12} md={4}>
-                {/* <Paper className={classes.paper}> */}
+            <Grid className={classes.grid} item xs={12} md={3}>
                 <ListGroupsContain />
-                {/* </Paper> */}
             </Grid>
-            <Grid className={classes.grid} item xs={12} md={6}>
-                <Paper className={classes.paper}>
-                    <PostsVkContain />
-                </Paper>
+            <Grid className={classes.gridPosts} item xs={12} md={7}>
+                <PostsVkContain />
             </Grid>
         </Grid>
     );

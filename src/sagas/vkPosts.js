@@ -9,8 +9,8 @@ import {
     setVkGroupSuccess,
     setVkGroupFailure
 } from '../actions/vkGroups';
-import { getGroupActive } from '../reducers/groups';
-import { getSendPost } from '../reducers/vkPosts';
+import { getGroupActive } from '../reducers';
+import { getSendPost } from '../reducers';
 
 export function* getVkPosts() {
     try {
@@ -18,7 +18,7 @@ export function* getVkPosts() {
         const activeId = yield select(getGroupActive);
         const posts = yield call(callAPI, 'wall.get', {
             owner_id: activeId,
-            count: '10',
+            count: '12',
             v: '5.100'
         });
         yield put(fetchVkGroupSuccess(posts.items));

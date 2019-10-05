@@ -13,7 +13,7 @@ import {
 const vkPosts = handleActions(
     {
         [fetchVkGroupRequest]: () => [],
-        [fetchVkGroupSuccess]: (state, action) => action.payload
+        [fetchVkGroupSuccess]: (_state, action) => action.payload
     },
     []
 );
@@ -21,7 +21,7 @@ const vkPosts = handleActions(
 const sendPost = handleActions(
     {
         [fetchVkGroupRequest]: () => {},
-        [addVkPost]: (state, action) => action.payload
+        [addVkPost]: (_state, action) => action.payload
     },
     {}
 );
@@ -38,10 +38,10 @@ const isLoading = handleActions(
 const error = handleActions(
     {
         [fetchVkGroupRequest]: () => null,
-        [fetchVkGroupFailure]: (state, action) =>
+        [fetchVkGroupFailure]: (_state, action) =>
             action.payload ? action.payload : null
     },
-    ''
+    null
 );
 
 export const getSendPost = state => state.vkPosts.sendPost;
@@ -57,7 +57,11 @@ export const getVkPost = createSelector(
                     from_id,
                     owner_id,
                     post_type,
-                    text
+                    text,
+                    shortText: _.truncate(text, {
+                        length: 124,
+                        separator: /,? +/
+                    })
                 };
                 let photosLink = '';
                 if (!attachments) return newFormatPost;

@@ -37,19 +37,24 @@ const TableGroup = ({ groups, active, handleDel, handleClickTableRow }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {groups.map(row => (
-                        <TableRow
-                            hover
-                            selected={isSelected(row.idCommunity)}
-                            key={row.idCommunity}
-                            onClick={() => handleClickTableRow(row.idCommunity)}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.idCommunity}
-                            </TableCell>
-                            <TableCell align="right">{row.nameGroup}</TableCell>
-                        </TableRow>
-                    ))}
+                    {groups &&
+                        groups.map(row => (
+                            <TableRow
+                                hover
+                                selected={isSelected(row.idCommunity)}
+                                key={row.idCommunity}
+                                onClick={() =>
+                                    handleClickTableRow(row.idCommunity)
+                                }
+                            >
+                                <TableCell component="th" scope="row">
+                                    {row.idCommunity}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {row.nameGroup}
+                                </TableCell>
+                            </TableRow>
+                        ))}
                 </TableBody>
             </Table>
             <Fab

@@ -3,31 +3,71 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import styled from 'styled-components';
+
+const Aaa = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+`;
 
 const useStyles = makeStyles(() => ({
     add: {
         marginTop: 10
+    },
+    search: {
+        marginTop: 30,
+        width: 45
     }
 }));
 
 const GroupAdd = ({
+    aliasGroup,
     idGroup,
     nameGroup,
     typeGroup,
     onChange,
     handleGroupsAdd,
-    handleTypeGroup
+    handleTypeGroup,
+    handleFindId
 }) => {
     const classes = useStyles();
 
     return (
         <Fragment>
+            <Aaa>
+                <TextField
+                    fullWidth
+                    id="group-alias"
+                    label={`${
+                        aliasGroup.error ? aliasGroup.error : 'Псевдоним'
+                    }`}
+                    error={aliasGroup.error ? true : false}
+                    margin="normal"
+                    value={aliasGroup.name}
+                    onChange={onChange({
+                        name: 'aliasGroup',
+                        check: false
+                    })}
+                    className={classes.textField}
+                />
+                <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="search"
+                    className={classes.search}
+                    onClick={() => handleFindId()}
+                >
+                    <SearchIcon />
+                </Fab>
+            </Aaa>
             <FormControl className={classes.formControl}>
                 <RadioGroup
                     value={typeGroup}
@@ -52,7 +92,7 @@ const GroupAdd = ({
                 error={idGroup.error ? true : false}
                 margin="normal"
                 value={idGroup.name}
-                onChange={onChange('idGroup')}
+                onChange={onChange({ name: 'idGroup', check: true })}
                 className={classes.textField}
             />
             <TextField
@@ -62,7 +102,7 @@ const GroupAdd = ({
                 error={nameGroup.error ? true : false}
                 margin="normal"
                 value={nameGroup.name}
-                onChange={onChange('nameGroup')}
+                onChange={onChange({ name: 'nameGroup', check: true })}
                 className={classes.textField}
             />
             <Fab
@@ -79,6 +119,10 @@ const GroupAdd = ({
 };
 
 GroupAdd.propTypes = {
+    aliasGroup: PropTypes.shape({
+        name: PropTypes.string,
+        error: PropTypes.string
+    }),
     idGroup: PropTypes.shape({
         name: PropTypes.string,
         error: PropTypes.string
@@ -90,10 +134,15 @@ GroupAdd.propTypes = {
     typeGroup: PropTypes.string,
     onChange: PropTypes.func,
     handleGroupsAdd: PropTypes.func,
-    handleTypeGroup: PropTypes.func
+    handleTypeGroup: PropTypes.func,
+    handleFindId: PropTypes.func
 };
 
 GroupAdd.exportDefault = {
+    aliasGroup: {
+        name: '',
+        error: ''
+    },
     idGroup: {
         name: '',
         error: ''
@@ -105,7 +154,8 @@ GroupAdd.exportDefault = {
     typeGroup: '',
     onChange: () => {},
     handleGroupsAdd: () => {},
-    handleTypeGroup: () => {}
+    handleTypeGroup: () => {},
+    handleFindId: () => {}
 };
 
 export default GroupAdd;
