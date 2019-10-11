@@ -9,14 +9,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import styled from 'styled-components';
 
-const Aaa = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-`;
+import { FlexRow } from './styledComponents';
 
 const useStyles = makeStyles(() => ({
     add: {
@@ -42,7 +36,7 @@ const GroupAdd = ({
 
     return (
         <Fragment>
-            <Aaa>
+            <FlexRow>
                 <TextField
                     fullWidth
                     id="group-alias"
@@ -67,7 +61,7 @@ const GroupAdd = ({
                 >
                     <SearchIcon />
                 </Fab>
-            </Aaa>
+            </FlexRow>
             <FormControl className={classes.formControl}>
                 <RadioGroup
                     value={typeGroup}
@@ -151,7 +145,7 @@ GroupAdd.exportDefault = {
         name: '',
         error: ''
     },
-    typeGroup: '',
+    typeGroup: 'group',
     onChange: () => {},
     handleGroupsAdd: () => {},
     handleTypeGroup: () => {},

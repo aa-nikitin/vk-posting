@@ -7,6 +7,7 @@ import './App.css';
 import GroupAddContain from './containers/GroupAddContain';
 import ListGroupsContain from './containers/ListGroupsContain';
 import PostsVkContain from './containers/PostsVkContain';
+import GroupIdContain from './containers/GroupIdContain';
 
 const useStyles = makeStyles(theme => ({
     root: { flexGrow: 1 },
@@ -31,7 +32,9 @@ function App() {
     return (
         <Grid container className={classes.root} spacing={0}>
             <Grid className={classes.grid} item xs={12} md={2}>
-                <Paper className={classes.gridBottom}>id куда размещать</Paper>
+                <Paper className={classes.gridBottom}>
+                    <GroupIdContain />
+                </Paper>
                 <Paper className={classes.paper}>
                     <GroupAddContain />
                 </Paper>

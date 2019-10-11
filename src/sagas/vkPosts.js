@@ -11,6 +11,7 @@ import {
 } from '../actions/vkGroups';
 import { getGroupActive } from '../reducers';
 import { getSendPost } from '../reducers';
+import { getGroupIdState } from '../reducers';
 
 export function* getVkPosts() {
     try {
@@ -30,10 +31,15 @@ export function* getVkPosts() {
 export function* sendVkPost() {
     try {
         const { attachments, text } = yield select(getSendPost);
-        // console.log(sendPost);
-        yield call(auth, ID_APP, 2);
+        const { id, typeGroup } = yield select(getGroupIdState);
+        const {
+            session: { mid }
+        } = yield call(auth, ID_APP, 2);
+        const typeGroupPost = typeGroup === 'group' ? '-' : '';
+        const idGroupPost = id ? id : mid;
+        console.log(`${typeGroupPost}${idGroupPost}`);
         yield call(callAPI, 'wall.post', {
-            owner_id: '-185844786',
+            owner_id: `${typeGroupPost}${idGroupPost}`,
             // from_group: '1',
             attachments: attachments,
             message: text,

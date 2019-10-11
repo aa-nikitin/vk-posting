@@ -27,8 +27,7 @@ export function* getGroups() {
     try {
         const groupsString = yield localStorage.getItem('groups');
         const groups = JSON.parse(groupsString);
-
-        yield put(fetchGroupsSuccess(groups));
+        if (groups) yield put(fetchGroupsSuccess(groups));
     } catch (error) {
         yield put(fetchGroupsFailure(error.message));
     }

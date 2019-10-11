@@ -122,7 +122,6 @@ class GroupAddContain extends PureComponent {
         const {
             aliasGroup: { name: aliasName }
         } = this.state;
-        // console.log(findedError);
         if (findedId) {
             this.setState({
                 idGroup: { name: String(findedId), error: '' },
@@ -141,18 +140,16 @@ class GroupAddContain extends PureComponent {
     render() {
         const { idGroup, nameGroup, typeGroup, aliasGroup } = this.state;
         return (
-            <div>
-                <GroupAdd
-                    aliasGroup={aliasGroup}
-                    idGroup={idGroup}
-                    nameGroup={nameGroup}
-                    handleGroupsAdd={this.handleGroupsAdd}
-                    onChange={name => this.handleChange.bind(this, name)}
-                    typeGroup={typeGroup}
-                    handleTypeGroup={this.handleTypeGroup}
-                    handleFindId={this.handleFindId}
-                />
-            </div>
+            <GroupAdd
+                aliasGroup={aliasGroup}
+                idGroup={idGroup}
+                nameGroup={nameGroup}
+                handleGroupsAdd={this.handleGroupsAdd}
+                onChange={name => this.handleChange.bind(this, name)}
+                typeGroup={typeGroup}
+                handleTypeGroup={this.handleTypeGroup}
+                handleFindId={this.handleFindId}
+            />
         );
     }
 }
