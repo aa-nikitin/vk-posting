@@ -28,11 +28,11 @@ const useStyles = makeStyles(theme => ({
 const TableGroup = ({
     groups,
     active,
+    counts,
+    page,
     handleDel,
     handleClickTableRow,
-    counts,
     handleCounts,
-    page,
     handlePage
 }) => {
     const isSelected = name => active === name;
@@ -61,7 +61,21 @@ const TableGroup = ({
                                     {row.idCommunity}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {row.nameGroup}
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://vk.com/${
+                                            row.typeGroup === 'page'
+                                                ? 'id'
+                                                : 'public'
+                                        }${
+                                            row.typeGroup === 'page'
+                                                ? row.idCommunity
+                                                : row.idCommunity.slice(1)
+                                        }`}
+                                    >
+                                        {row.nameGroup}
+                                    </a>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -107,20 +121,20 @@ TableGroup.propTypes = {
     groups: PropTypes.array,
     active: PropTypes.string,
     counts: PropTypes.number,
+    page: PropTypes.number,
     handleDel: PropTypes.func,
     handleClickTableRow: PropTypes.func,
     handleCounts: PropTypes.func,
-    page: PropTypes.number,
     handlePage: PropTypes.func
 };
 TableGroup.exportDefault = {
     groups: [],
     active: '',
     counts: 0,
+    page: 0,
     handleDel: () => {},
     handleClickTableRow: () => {},
     handleCounts: () => {},
-    page: 0,
     handlePage: () => {}
 };
 

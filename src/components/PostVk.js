@@ -35,22 +35,30 @@ const MediaCard = ({
     shortText,
     attachments,
     photoPreview,
+    linkWall,
     handleAddPost
 }) => {
     const classes = useStyles();
+
     return (
         <Grid item xs={12} md={3} className={classes.cardGrid}>
             <Card className={classes.card}>
                 <CardActionArea>
-                    <CardContent className={classes.media}>
-                        {photoPreview && (
-                            <CardMedia
-                                className={classes.photo}
-                                image={photoPreview}
-                                title="Contemplative Reptile"
-                            />
-                        )}
-                    </CardContent>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`https://vk.com/${linkWall}`}
+                    >
+                        <CardContent className={classes.media}>
+                            {photoPreview && (
+                                <CardMedia
+                                    className={classes.photo}
+                                    image={photoPreview}
+                                    title="Contemplative Reptile"
+                                />
+                            )}
+                        </CardContent>
+                    </a>
 
                     <CardContent className={classes.cardText}>
                         <Typography
@@ -80,6 +88,7 @@ MediaCard.propTypes = {
     text: PropTypes.string,
     shortText: PropTypes.string,
     attachments: PropTypes.string,
+    linkWall: PropTypes.string,
     handleAddPost: PropTypes.func
 };
 
@@ -87,6 +96,7 @@ MediaCard.defaultProps = {
     text: '',
     shortText: '',
     attachments: '',
+    linkWall: '',
     handleAddPost: () => {}
 };
 

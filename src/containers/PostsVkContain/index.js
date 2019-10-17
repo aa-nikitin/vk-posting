@@ -22,6 +22,8 @@ class PostsVkContain extends PureComponent {
                 {posts.map(item => {
                     const {
                         id,
+                        from_id,
+                        owner_id,
                         text,
                         attachments,
                         photosLink,
@@ -39,6 +41,7 @@ class PostsVkContain extends PureComponent {
                             photoPreview={photoPreview}
                             attachments={photosLink}
                             handleAddPost={this.handleAddPost}
+                            linkWall={`id${owner_id}?w=wall${from_id}_${id}%2Fall`}
                         />
                     );
                 })}
