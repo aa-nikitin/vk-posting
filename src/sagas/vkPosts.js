@@ -9,17 +9,25 @@ import {
     setVkGroupSuccess,
     setVkGroupFailure
 } from '../actions/vkGroups';
-import { getGroupActive } from '../reducers';
-import { getSendPost } from '../reducers';
-import { getGroupIdState } from '../reducers';
+import {
+    getGroupActive,
+    getGroupCount,
+    getGroupPage,
+    getSendPost,
+    getGroupIdState
+} from '../reducers';
 
 export function* getVkPosts() {
     try {
         yield call(auth, ID_APP, 2);
         const activeId = yield select(getGroupActive);
+        const countPosts = yield select(getGroupCount);
+        const pagePosts = yield select(getGroupPage);
+        const pageOffset = countPosts * pagePosts - countPosts;
         const posts = yield call(callAPI, 'wall.get', {
             owner_id: activeId,
-            count: '12',
+            count: countPosts,
+            offset: pageOffset,
             v: '5.100'
         });
         yield put(fetchVkGroupSuccess(posts.items));
@@ -37,10 +45,9 @@ export function* sendVkPost() {
         } = yield call(auth, ID_APP, 2);
         const typeGroupPost = typeGroup === 'group' ? '-' : '';
         const idGroupPost = id ? id : mid;
-        console.log(`${typeGroupPost}${idGroupPost}`);
+
         yield call(callAPI, 'wall.post', {
             owner_id: `${typeGroupPost}${idGroupPost}`,
-            // from_group: '1',
             attachments: attachments,
             message: text,
             v: '5.100'

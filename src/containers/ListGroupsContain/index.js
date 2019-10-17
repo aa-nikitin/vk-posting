@@ -2,17 +2,40 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import TableGroup from '../../components/TableGroup';
-import { getGroups, getGroupActive } from '../../reducers/';
+import { getGroups, getGroupActive, getGroupsAll } from '../../reducers/';
 import {
     setGroupsRequest,
     fetchGroupsRequest,
     groupsDel,
-    groupsActiveItem
+    groupsActiveItem,
+    groupsDisplayCount,
+    groupsDisplayPage
 } from '../../actions/listGroups';
 import { fetchVkGroupRequest } from '../../actions/vkGroups';
 
 class ListGroupsContain extends PureComponent {
-    state = {};
+    state = {
+        counts: this.props.groupsAll.count,
+        page: this.props.groupsAll.page
+    };
+
+    handleCounts = ({ target: { value } }) => {
+        const { counts } = this.state;
+        const { groupsDisplayCount } = this.props;
+        const step = 4;
+        const newValue = (value - counts) * step + counts;
+        const countValue = newValue > step ? newValue : step;
+
+        this.setState({ counts: countValue });
+        groupsDisplayCount(countValue);
+    };
+    handlePage = ({ target: { value } }) => {
+        const { groupsDisplayPage } = this.props;
+        const pageValue = Number(value > 0 ? value : 1);
+
+        this.setState({ page: pageValue });
+        groupsDisplayPage(pageValue);
+    };
 
     handleDel = id => {
         const { setGroupsRequest, groupsDel } = this.props;
@@ -35,6 +58,7 @@ class ListGroupsContain extends PureComponent {
     }
 
     render() {
+        const { counts, page } = this.state;
         const { groups, active, groupsActiveItem } = this.props;
 
         return (
@@ -44,6 +68,10 @@ class ListGroupsContain extends PureComponent {
                 handleClickTableRow={this.handleClickTableRow}
                 groupsActiveItem={groupsActiveItem}
                 active={active}
+                counts={Number(counts)}
+                page={Number(page)}
+                handleCounts={this.handleCounts}
+                handlePage={this.handlePage}
             />
         );
     }
@@ -52,7 +80,8 @@ class ListGroupsContain extends PureComponent {
 const mapStateToProps = state => {
     return {
         groups: getGroups(state),
-        active: getGroupActive(state)
+        active: getGroupActive(state),
+        groupsAll: getGroupsAll(state)
     };
 };
 
@@ -63,6 +92,8 @@ export default connect(
         fetchGroupsRequest,
         groupsDel,
         groupsActiveItem,
-        fetchVkGroupRequest
+        fetchVkGroupRequest,
+        groupsDisplayCount,
+        groupsDisplayPage
     }
 )(ListGroupsContain);

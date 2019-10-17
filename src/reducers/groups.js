@@ -10,8 +10,32 @@ import {
     setGroupsFailure,
     fetchGroupsRequest,
     fetchGroupsSuccess,
-    fetchGroupsFailure
+    fetchGroupsFailure,
+    groupsDisplayCount,
+    groupsDisplayPage
 } from '../actions/listGroups';
+
+const count = handleActions(
+    {
+        [groupsDisplayCount]: (_state, { payload }) => payload
+    },
+    8
+);
+
+const page = handleActions(
+    {
+        [groupsDisplayPage]: (_state, { payload }) => payload
+    },
+    1
+);
+
+const active = handleActions(
+    {
+        [groupsActiveItem]: (_state, action) => action.payload,
+        [fetchGroupsRequest]: () => ''
+    },
+    ''
+);
 
 const groups = handleActions(
     {
@@ -22,8 +46,8 @@ const groups = handleActions(
         [groupsDel]: (state, action) =>
             produce(
                 state,
-                draftState =>
-                    (draftState = state.filter(
+                _draftState =>
+                    (_draftState = state.filter(
                         item => item.idCommunity !== action.payload
                     ))
             ),
@@ -31,14 +55,6 @@ const groups = handleActions(
         [fetchGroupsRequest]: () => []
     },
     []
-);
-
-const active = handleActions(
-    {
-        [groupsActiveItem]: (_state, action) => action.payload,
-        [fetchGroupsRequest]: () => ''
-    },
-    ''
 );
 
 const isLoading = handleActions(
@@ -63,7 +79,17 @@ const error = handleActions(
     null
 );
 
+export const getGroupsAll = state => state.groups;
 export const getGroups = state => state.groups.groups;
 export const getGroupActive = state => state.groups.active;
+export const getGroupCount = state => state.groups.count;
+export const getGroupPage = state => state.groups.page;
 
-export default combineReducers({ groups, active, isLoading, error });
+export default combineReducers({
+    groups,
+    active,
+    count,
+    page,
+    isLoading,
+    error
+});

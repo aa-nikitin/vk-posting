@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import TextField from '@material-ui/core/TextField';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -24,7 +25,16 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const TableGroup = ({ groups, active, handleDel, handleClickTableRow }) => {
+const TableGroup = ({
+    groups,
+    active,
+    handleDel,
+    handleClickTableRow,
+    counts,
+    handleCounts,
+    page,
+    handlePage
+}) => {
     const isSelected = name => active === name;
     const classes = useStyles();
     return (
@@ -65,6 +75,30 @@ const TableGroup = ({ groups, active, handleDel, handleClickTableRow }) => {
             >
                 <DeleteIcon />
             </Fab>
+            <TextField
+                id="counts"
+                label="Количество"
+                value={counts}
+                onChange={handleCounts}
+                type="number"
+                className={classes.textField}
+                InputLabelProps={{
+                    shrink: true
+                }}
+                margin="normal"
+            />
+            <TextField
+                id="pages"
+                label="Страница"
+                value={page}
+                onChange={handlePage}
+                type="number"
+                className={classes.textField}
+                InputLabelProps={{
+                    shrink: true
+                }}
+                margin="normal"
+            />
         </Paper>
     );
 };
@@ -72,14 +106,22 @@ const TableGroup = ({ groups, active, handleDel, handleClickTableRow }) => {
 TableGroup.propTypes = {
     groups: PropTypes.array,
     active: PropTypes.string,
+    counts: PropTypes.number,
     handleDel: PropTypes.func,
-    handleClickTableRow: PropTypes.func
+    handleClickTableRow: PropTypes.func,
+    handleCounts: PropTypes.func,
+    page: PropTypes.number,
+    handlePage: PropTypes.func
 };
 TableGroup.exportDefault = {
     groups: [],
     active: '',
+    counts: 0,
     handleDel: () => {},
-    handleClickTableRow: () => {}
+    handleClickTableRow: () => {},
+    handleCounts: () => {},
+    page: 0,
+    handlePage: () => {}
 };
 
 export default TableGroup;

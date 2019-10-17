@@ -5,6 +5,8 @@ const {
         add: groupsAdd,
         del: groupsDel,
         active: groupsActiveItem,
+        count: groupsDisplayCount,
+        page: groupsDisplayPage,
         set: {
             request: setGroupsRequest,
             success: setGroupsSuccess,
@@ -22,6 +24,8 @@ const {
             ADD: null,
             DEL: null,
             ACTIVE: null,
+            COUNT: null,
+            PAGE: null,
             SET: {
                 REQUEST: null,
                 SUCCESS: null,
@@ -46,5 +50,7 @@ export {
     setGroupsFailure,
     fetchGroupsRequest,
     fetchGroupsSuccess,
-    fetchGroupsFailure
+    fetchGroupsFailure,
+    groupsDisplayCount,
+    groupsDisplayPage
 };
