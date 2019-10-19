@@ -1,6 +1,6 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { auth, callAPI } from '../api';
-import { ID_APP } from '../constants';
+import { ID_APP, GROUP_ID_STORAGE_KEY } from '../constants';
 
 import {
     fetchGroupIdRequest,
@@ -54,7 +54,7 @@ export function* setGroupId() {
         const groupIdState = yield select(getGroupIdState);
         const groupIdStateString = JSON.stringify(groupIdState);
 
-        yield localStorage.setItem('idGroup', groupIdStateString);
+        yield localStorage.setItem(GROUP_ID_STORAGE_KEY, groupIdStateString);
         yield put(setGroupIdSuccess());
     } catch (error) {
         yield put(setGroupIdFailure(error.message));
@@ -63,7 +63,9 @@ export function* setGroupId() {
 
 export function* openGroupId() {
     try {
-        const groupIdStateString = yield localStorage.getItem('idGroup');
+        const groupIdStateString = yield localStorage.getItem(
+            GROUP_ID_STORAGE_KEY
+        );
         const groupIdState = JSON.parse(groupIdStateString);
 
         if (groupIdState) yield put(openGroupIdSuccess(groupIdState));
