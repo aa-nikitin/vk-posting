@@ -51,6 +51,7 @@ const GroupAdd = ({
                         check: false
                     })}
                     className={classes.textField}
+                    name="group-alias"
                 />
                 <Fab
                     size="small"
@@ -88,6 +89,7 @@ const GroupAdd = ({
                 value={idGroup.name}
                 onChange={onChange({ name: 'idGroup', check: true })}
                 className={classes.textField}
+                name="group-id"
             />
             <TextField
                 fullWidth
@@ -98,6 +100,7 @@ const GroupAdd = ({
                 value={nameGroup.name}
                 onChange={onChange({ name: 'nameGroup', check: true })}
                 className={classes.textField}
+                name="group-name"
             />
             <Fab
                 size="small"

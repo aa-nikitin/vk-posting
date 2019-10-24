@@ -10,6 +10,8 @@ import {
     clearFindError
 } from '../../actions/findId';
 
+import { errorEmpty, errorType, errorSame } from '../../constants';
+
 import GroupAdd from '../../components/GroupAdd';
 import { getGroups, getFindId } from '../../reducers/';
 
@@ -32,15 +34,15 @@ class GroupAddContain extends PureComponent {
         });
 
         if (value.length === 0) {
-            return 'Не должно быть пустым';
+            return errorEmpty;
         }
         switch (name) {
             case 'idGroup':
                 if (validId === 0 || value.indexOf('.') > 0) {
-                    return 'ID Должно быть целым числом';
+                    return errorType;
                 }
                 if (checkSuit.length) {
-                    return 'сообщество с таким id существуют';
+                    return errorSame;
                 }
                 break;
             default:
@@ -153,6 +155,8 @@ class GroupAddContain extends PureComponent {
         );
     }
 }
+
+export { GroupAddContain };
 
 const mapStateToProps = state => {
     return {
