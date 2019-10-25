@@ -9,11 +9,11 @@ import {
     clearFindId,
     clearFindError
 } from '../../actions/findId';
-
-import { errorEmpty, errorType, errorSame } from '../../constants';
-
 import GroupAdd from '../../components/GroupAdd';
 import { getGroups, getFindId } from '../../reducers/';
+import { ERROR_MESSAGES } from '../../constants';
+
+const { errorEmpty, errorType, errorSame } = ERROR_MESSAGES;
 
 class GroupAddContain extends PureComponent {
     state = {

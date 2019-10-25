@@ -50,10 +50,11 @@ class PostsVkContain extends PureComponent {
     }
 }
 
+export { PostsVkContain };
+
 const mapStateToProps = state => {
     return {
         posts: getVkPost(state)
-        // post: getVkPost(state)
     };
 };
 

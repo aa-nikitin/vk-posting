@@ -57,6 +57,8 @@ class GroupIdContain extends PureComponent {
     }
 }
 
+export { GroupIdContain };
+
 const mapStateToProps = state => {
     return {
         idGroupState: getGroupIdState(state)

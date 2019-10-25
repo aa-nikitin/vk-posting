@@ -13,6 +13,8 @@ import {
 } from '../../actions/listGroups';
 import { fetchVkGroupRequest } from '../../actions/vkGroups';
 
+import { COUNT_STEP } from '../../constants';
+
 class ListGroupsContain extends PureComponent {
     state = {
         counts: this.props.groupsAll.count,
@@ -22,7 +24,7 @@ class ListGroupsContain extends PureComponent {
     handleCounts = ({ target: { value } }) => {
         const { counts } = this.state;
         const { groupsDisplayCount } = this.props;
-        const step = 4;
+        const step = COUNT_STEP;
         const newValue = (value - counts) * step + counts;
         const countValue = newValue > step ? newValue : step;
 
@@ -76,6 +78,8 @@ class ListGroupsContain extends PureComponent {
         );
     }
 }
+
+export { ListGroupsContain };
 
 const mapStateToProps = state => {
     return {

@@ -45,6 +45,7 @@ const GroupId = ({
                     value={idGroup}
                     className={classes.textField}
                     onChange={onChange}
+                    name="group-alias"
                 />
                 <Fab
                     size="small"

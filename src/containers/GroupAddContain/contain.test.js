@@ -8,20 +8,20 @@ import {
     clearFindError
 } from '../../actions/findId';
 import { groupsAdd, setGroupsRequest } from '../../actions/listGroups';
+import { getGroups, getFindId } from '../../reducers/';
 
-import {
-    groups,
-    vkPosts,
-    findId,
-    groupId
-} from '../../reducers/tests/constants';
+import { stateTest } from '../../reducers/tests/constants';
 
-import { errorEmpty, errorType, errorSame } from '../../constants';
+import { ERROR_MESSAGES } from '../../constants';
+const { errorEmpty, errorType, errorSame } = ERROR_MESSAGES;
+
+const groupsState = getGroups(stateTest);
+const findIdState = getFindId(stateTest);
 
 const wrapper = mount(
     <GroupAddContain
-        groups={groups.groups}
-        findId={findId.id}
+        groups={groupsState}
+        findId={findIdState}
         fetchFindIdRequest={fetchFindIdRequest}
         aliasFindId={aliasFindId}
         clearFindId={clearFindId}
@@ -81,7 +81,6 @@ describe('тестирование контейнера GroupAddContain', () => 
         wrapper.find('input[name="group-id"]').simulate('change', {
             target: { name: 'group-id', value: valueInput }
         });
-        // console.log(wrapper.state());
         expect(wrapper.state().idGroup.error).toEqual(errorType);
     });
     it('Проверка на ввод дублей в поле ID', () => {
@@ -94,7 +93,7 @@ describe('тестирование контейнера GroupAddContain', () => 
                         typeGroup: 'group'
                     }
                 ]}
-                findId={findId.id}
+                findId={findIdState}
                 fetchFindIdRequest={fetchFindIdRequest}
                 aliasFindId={aliasFindId}
                 clearFindId={clearFindId}

@@ -100,6 +100,7 @@ const TableGroup = ({
                     shrink: true
                 }}
                 margin="normal"
+                name="counts"
             />
             <TextField
                 id="pages"
@@ -112,6 +113,7 @@ const TableGroup = ({
                     shrink: true
                 }}
                 margin="normal"
+                name="pages"
             />
         </Paper>
     );
