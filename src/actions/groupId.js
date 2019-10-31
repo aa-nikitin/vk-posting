@@ -11,12 +11,12 @@ const {
         set: {
             request: setGroupIdRequest,
             success: setGroupIdSuccess,
-            failure: setGroupIdFailure
+            error: setGroupIdFailure
         },
         open: {
             request: openGroupIdRequest,
             success: openGroupIdSuccess,
-            failure: openGroupIdFailure
+            error: openGroupIdFailure
         }
     }
 } = createActions(

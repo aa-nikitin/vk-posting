@@ -31,7 +31,7 @@ const page = handleActions(
 
 const active = handleActions(
     {
-        [groupsActiveItem]: (_state, action) => action.payload,
+        [groupsActiveItem]: (_state, { payload }) => payload,
         [fetchGroupsRequest]: () => ''
     },
     ''
@@ -39,19 +39,19 @@ const active = handleActions(
 
 const groups = handleActions(
     {
-        [groupsAdd]: (state, action) =>
+        [groupsAdd]: (state, { payload }) =>
             produce(state, draftState => {
-                draftState.push(action.payload);
+                draftState.push(payload);
             }),
-        [groupsDel]: (state, action) =>
+        [groupsDel]: (state, { payload }) =>
             produce(
                 state,
                 _draftState =>
                     (_draftState = state.filter(
-                        item => item.idCommunity !== action.payload
+                        item => item.idCommunity !== payload
                     ))
             ),
-        [fetchGroupsSuccess]: (_state, action) => action.payload,
+        [fetchGroupsSuccess]: (_state, { payload }) => payload,
         [fetchGroupsRequest]: () => []
     },
     []
@@ -72,9 +72,9 @@ const isLoading = handleActions(
 const error = handleActions(
     {
         [setGroupsRequest]: () => null,
-        [setGroupsFailure]: (_state, action) => action.payload,
+        [setGroupsFailure]: (_state, { payload }) => payload,
         [fetchGroupsRequest]: () => null,
-        [fetchGroupsFailure]: (_state, action) => action.payload
+        [fetchGroupsFailure]: (_state, { payload }) => payload
     },
     null
 );

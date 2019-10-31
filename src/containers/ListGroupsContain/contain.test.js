@@ -32,7 +32,7 @@ const wrapper = mount(
         fetchVkGroupRequest={fetchVkGroupRequest}
     />
 );
-describe('Тест', () => {
+describe('тестирование контейнера ListGroupsContain', () => {
     it('Проверка ввода в поле count', () => {
         const nameField = 'counts';
         const valueInput = COUNT_STEP;

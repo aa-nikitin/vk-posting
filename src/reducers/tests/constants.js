@@ -21,7 +21,7 @@ export const stateTest = {
     },
     groupId: {
         id: '',
-        isLoading: true,
+        isLoading: false,
         error: null,
         typeGroup: 'page'
     }

@@ -11,7 +11,7 @@ import {
 
 const id = handleActions(
     {
-        [fetchFindIdSuccess]: (state, action) => action.payload,
+        [fetchFindIdSuccess]: (state, { payload }) => payload,
         [fetchFindIdRequest]: () => 0,
         [clearFindId]: () => 0
     },
@@ -41,7 +41,7 @@ const isLoading = handleActions(
 const error = handleActions(
     {
         [fetchFindIdRequest]: () => null,
-        [fetchFindIdFailure]: (_state, action) => action.payload,
+        [fetchFindIdFailure]: (_state, { payload }) => payload,
         [clearFindError]: () => null
     },
     null

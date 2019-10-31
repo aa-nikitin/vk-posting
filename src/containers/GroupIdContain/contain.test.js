@@ -19,7 +19,7 @@ const wrapper = mount(
         openGroupIdRequest={openGroupIdRequest}
     />
 );
-describe('Тест', () => {
+describe('тестирование контейнера GroupIdContain', () => {
     it('Проверка ввода в поле count', () => {
         const nameField = 'group-alias';
         const valueInput = 'factura';

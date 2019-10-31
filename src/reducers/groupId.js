@@ -52,11 +52,11 @@ const isLoading = handleActions(
 const error = handleActions(
     {
         [fetchGroupIdRequest]: () => null,
-        [fetchGroupIdError]: (_state, action) => action.payload,
+        [fetchGroupIdError]: (_state, { payload }) => payload,
         [setGroupIdRequest]: () => null,
-        [setGroupIdFailure]: (_state, action) => action.payload,
+        [setGroupIdFailure]: (_state, { payload }) => payload,
         [openGroupIdRequest]: () => null,
-        [openGroupIdFailure]: (_state, action) => action.payload
+        [openGroupIdFailure]: (_state, { payload }) => payload
     },
     null
 );
