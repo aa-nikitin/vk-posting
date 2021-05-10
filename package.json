@@ -9,7 +9,7 @@
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.15.1",
         "immer": "^4.0.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.21",
         "material-table": "^1.50.0",
         "prop-types": "^15.7.2",
         "react": "^16.9.0",
